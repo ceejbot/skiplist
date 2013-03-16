@@ -5,13 +5,13 @@ var
 	assert = chai.assert,
 	expect = chai.expect,
 	should = chai.should(),
-	util = require('util'),
+	crypto = require('crypto'),
 	Skiplist = require('../index')
 	;
 
 function makeAnimalList()
 {
-	var list = new Skiplist(20);
+	var list = new Skiplist(30);
 	list.insert('cat', 'Cats are cute.');
 	list.insert('dog', 'Dogs are loyal.');
 	list.insert('aardvark', 'Aardvarks are long-nosed.');
@@ -61,6 +61,23 @@ describe('Skiplist', function()
 				list.insert(0, 'zero, my hero');
 			}
 			willThrow.should.throw(Error);
+		});
+
+		it('can handle a few thousand items', function()
+		{
+			var list = new Skiplist(6000);
+			var buf1, buf2;
+
+			for (var i = 0; i < 5000; i++)
+			{
+				buf1 = crypto.pseudoRandomBytes(8).toString('hex');
+				buf2 = crypto.pseudoRandomBytes(24).toString('hex');
+				list.insert(buf1, buf2);
+			}
+
+			list.length().should.equal(5000);
+			var results = list.find('f');
+			results.should.be.an('array');
 		});
 	});
 
