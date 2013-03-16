@@ -2,6 +2,8 @@
 
 Because I wanted to understand skip lists.
 
+[![Build Status](https://secure.travis-ci.org/ceejbot/skiplist.png)](http://travis-ci.org/ceejbot/skiplist)
+
 ##
 
 ```javascript
