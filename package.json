@@ -5,7 +5,14 @@
 	"main": "index.js",
 	"scripts": 
 	{
-		"test": "mocha -R spec test/*.js"
+		"test": "mocha -R spec test/*.js && mocha --require blanket -R travis-cov test/*.js",
+		"test-cov": "mocha --require blanket -R travis-cov test/*.js",
+		"coverage": "mocha --require blanket -R html-cov test/*.js > test/coverage.html",
+		"blanket":
+		{
+			"pattern": "//^((?!\/node_modules|test\/).)*$/ig"
+		},
+		"travis-cov": { "threshold": 95 }
 	},
 	"repository": { "type": "git", "url": "git@github.com:ceejbot/skiplist.git" },
 	"keywords": 
@@ -13,10 +20,6 @@
 		"skiplist",
 		"data structures"
 	],
-	"dependencies":
-	{
-		"lodash": "*"
-	},
 	"devDependencies":
 	{
 		"mocha": "*",

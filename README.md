@@ -30,7 +30,3 @@ assert(list.length() === 2);
 [The Wikipedia entry on skip lists](https://en.wikipedia.org/wiki/Skip_list).
 
 [A Python implementation](http://infohost.nmt.edu/tcc/help/lang/python/examples/pyskip/web/index.html). [Another one](http://pythonsweetness.tumblr.com/post/45227295342/fast-pypy-compatible-ordered-map-in-89-lines-of-python).
-
-## TODO
-
-Uses lodash for clone() and isEqual(). Seems a little silly.

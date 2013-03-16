@@ -1,10 +1,7 @@
 var
-	_ = require('lodash'),
 	assert = require('assert'),
-	EventEmitter = require('events').EventEmitter,
 	util = require('util')
 	;
-
 
 function makeNode(level, key, value)
 {
@@ -16,12 +13,11 @@ function makeNode(level, key, value)
 
 function nodesEqual(left, right)
 {
-	return _.isEqual(left, right);
-}
-
-function printNode(item)
-{
-	console.log(item[0], '-->', item[3][0]);
+	if (left[0] !== right[0]) return false;
+	if (left[1] !== right[1]) return false;
+	if (left[2] !== right[2]) return false;
+	if (left[3] !== right[3]) return false;
+	return true;
 }
 
 var P = 1/Math.E;
@@ -31,8 +27,6 @@ var NIL = makeNode(-1);
 
 function Skiplist(maxsize)
 {
-	EventEmitter.call(this);
-
 	this.maxsize = maxsize || 65535;
 	this.maxlevel = Math.round(Math.log(this.maxsize, 2));
 
@@ -45,7 +39,6 @@ function Skiplist(maxsize)
 	for (i = 0; i < this._update.length; i++)
 		this._update[i] = this.head;
 }
-util.inherits(Skiplist, EventEmitter);
 
 Skiplist.prototype._randomLevel = function()
 {
@@ -64,7 +57,7 @@ Skiplist.prototype.find = function(search, reverse)
 
 	if (search)
 	{
-		var update = _.clone(this._update);
+		var update = this._update.slice(0);
 		var found = this._findLess(update, search);
 		if (!nodesEqual(found[3], NIL))
 			node = found[3];
@@ -72,10 +65,8 @@ Skiplist.prototype.find = function(search, reverse)
 	while (node[0])
 	{
 		results.push([node[0], node[1]]);
-		this.emit('find', [node[0], node[1]]);
 		node = node[idx];
 	}
-	this.emit('done');
 	return results;
 };
 
@@ -111,7 +102,7 @@ Skiplist.prototype._findLess = function(update, search)
 Skiplist.prototype.insert = function(key, value)
 {
 	assert(key);
-	var update = _.clone(this._update);
+	var update = this._update.slice(0);
 	var node = this._findLess(update, key);
 	var prev = node;
 	node = node[3];
@@ -128,7 +119,7 @@ Skiplist.prototype.insert = function(key, value)
 			node[3 + i] = update[i][3 + i];
 			update[i][3 + i] = node;
 		}
-		if (_.isEqual(node[3], NIL))
+		if (nodesEqual(node[3], NIL))
 			this.tail = node;
 		else
 			node[3][2] = node;
@@ -137,7 +128,7 @@ Skiplist.prototype.insert = function(key, value)
 
 Skiplist.prototype.remove = function(key)
 {
-	var update = _.clone(this._update);
+	var update = this._update.slice(0);
 	var node = this._findLess(update, key);
 	node = node[3];
 

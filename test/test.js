@@ -52,6 +52,16 @@ describe('Skiplist', function()
 			var result = list.match('key');
 			result.should.equal('another value');
 		});
+
+		it('zero cannot be a key', function()
+		{
+			function willThrow()
+			{
+				var list = new Skiplist(10);
+				list.insert(0, 'zero, my hero');
+			}
+			willThrow.should.throw(Error);
+		});
 	});
 
 	describe('#find()', function()
@@ -64,38 +74,13 @@ describe('Skiplist', function()
 			results.length.should.equal(8);
 		});
 
-		it('emits its items as events as well', function()
-		{
-			var list = makeAnimalList();
-			var results = [];
-			list.addListener('find', function(item)
-			{
-				results.push(item);
-			});
-			list.addListener('done', function()
-			{
-				results.length.should.equal(8);
-			});
-
-			list.find();
-		});
-
 		it('emits in sorted order', function()
 		{
 			var list = makeAnimalList();
-			var results = [];
-			list.addListener('find', function(item)
-			{
-				results.push(item);
-			});
-			list.addListener('done', function()
-			{
-				results[0][0].should.equal('aardvark');
-				results[3][0].should.equal('cat');
-				results[7][0].should.equal('wallaby');
-			});
-
-			list.find();
+			var results = list.find();
+			results[0][0].should.equal('aardvark');
+			results[3][0].should.equal('cat');
+			results[7][0].should.equal('wallaby');
 		});
 
 		it('returns the result of a search reversed', function()
