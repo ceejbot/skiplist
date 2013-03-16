@@ -1,0 +1,29 @@
+{
+	"name": "skiplist",
+	"version": "0.0.1",
+	"description": "skiplist implementation for javascript",
+	"main": "index.js",
+	"scripts": 
+	{
+		"test": "mocha -R spec test/*.js"
+	},
+	"repository": { "type": "git", "url": "git@github.com:ceejbot/skiplist.git" },
+	"keywords": 
+	[
+		"skiplist",
+		"data structures"
+	],
+	"dependencies":
+	{
+		"lodash": "*"
+	},
+	"devDependencies":
+	{
+		"mocha": "*",
+		"chai": "*",
+		"blanket": "*",
+		"travis-cov": "*"
+	},
+	"author": "C J Silverio <ceejceej@gmail.com> (http://ceejbot.tumblr.com/)",
+	"license": "MIT"
+}
