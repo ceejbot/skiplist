@@ -170,5 +170,48 @@ describe('Skiplist', function()
 		});
 	});
 
+	describe('some random churn', function()
+	{
+		it('can handle random adds and deletes without barfing', function()
+		{
+			var list = new Skiplist(60000);
+
+			function addRandom()
+			{
+				var buf1 = crypto.pseudoRandomBytes(8).toString('hex');
+				var buf2 = crypto.pseudoRandomBytes(24).toString('hex');
+				list.insert(buf1, buf2);
+			}
+
+			function removeRandom()
+			{
+				var buf1 = crypto.pseudoRandomBytes(8).toString('hex');
+				var results = list.find(buf1);
+				if (!results.length)
+					return;
+				list.remove(results[0][0]);
+			}
+
+			for (var i = 0; i < 10000; i++)
+			{
+				var coinflip = Math.random();
+				if (coinflip > 0.33)
+					addRandom();
+				else
+					removeRandom();
+			}
+
+			var results = list.find('f');
+			results.should.be.an('array');
+		});
+
+		it('can make a lot of animal lists', function()
+		{
+			for (var i = 0; i < 1000; i++)
+			{
+				makeAnimalList();
+			}
+		});
+	});
 
 });

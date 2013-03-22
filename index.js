@@ -43,7 +43,7 @@ function Skiplist(maxsize)
 Skiplist.prototype._randomLevel = function()
 {
 	var lvl = 0;
-	var max = this.level + 1;
+	var max = Math.min(this.maxlevel, this.level + 1);
 	while ((Math.random() < P) && (lvl < max))
 		lvl++;
 	return lvl;
