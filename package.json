@@ -1,9 +1,9 @@
 {
 	"name": "skiplist",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "skiplist implementation for javascript",
 	"main": "index.js",
-	"scripts": 
+	"scripts":
 	{
 		"test": "mocha -R spec test/*.js && mocha --require blanket -R travis-cov test/*.js",
 		"test-cov": "mocha --require blanket -R travis-cov test/*.js",
@@ -15,7 +15,7 @@
 		"travis-cov": { "threshold": 95 }
 	},
 	"repository": { "type": "git", "url": "git@github.com:ceejbot/skiplist.git" },
-	"keywords": 
+	"keywords":
 	[
 		"skiplist",
 		"data structures"

@@ -70,6 +70,27 @@ Skiplist.prototype.find = function(search, reverse)
 	return results;
 };
 
+Skiplist.prototype.findWithCount = function(search, maxResultsToReturn, reverse)
+{
+	var node = reverse ? this.tail : this.head[3];
+	var idx = reverse ? 2 : 3;
+	var results = [];
+
+	if (search)
+	{
+		var update = this._update.slice(0);
+		var found = this._findLess(update, search);
+		if (!nodesEqual(found[3], NIL))
+			node = found[3];
+	}
+	while (node[0] && (results.length < maxResultsToReturn))
+	{
+		results.push([node[0], node[1]]);
+		node = node[idx];
+	}
+	return results;
+};
+
 Skiplist.prototype.length = function()
 {
 	// more for my curiosity

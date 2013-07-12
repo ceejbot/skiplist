@@ -122,6 +122,27 @@ describe('Skiplist', function()
 		});
 	});
 
+	describe('#findWithCount()', function()
+	{
+		it('returns at most the desired number of matches', function()
+		{
+			var list = makeAnimalList();
+			var results = list.findWithCount('dog', 2);
+			results.should.be.ok;
+			results.should.be.an('array');
+			results.length.should.equal(2);
+		});
+
+		it('works in reverse', function()
+		{
+			var list = makeAnimalList();
+			var results = list.findWithCount('wallaby', 2);
+			results.should.be.ok;
+			results.should.be.an('array');
+			results.length.should.equal(1);
+		});
+	});
+
 	describe('#match()', function()
 	{
 		it('returns nodes with keys matching the input', function()
