@@ -13,6 +13,8 @@ function makeNode(level, key, value)
 
 function nodesEqual(left, right)
 {
+	if ((left === undefined) && right) return false;
+	if ((right === undefined) && left) return false;
 	if (left[0] !== right[0]) return false;
 	if (left[1] !== right[1]) return false;
 	if (left[2] !== right[2]) return false;

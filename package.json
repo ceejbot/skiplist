@@ -1,11 +1,11 @@
 {
 	"name": "skiplist",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "skiplist implementation for javascript",
 	"main": "index.js",
 	"scripts":
 	{
-		"test": "mocha -R spec test/*.js && mocha --require blanket -R travis-cov test/*.js",
+		"test": "mocha -R spec test/test*.js && mocha --require blanket -R travis-cov test/test*.js",
 		"test-cov": "mocha --require blanket -R travis-cov test/*.js",
 		"coverage": "mocha --require blanket -R html-cov test/*.js > test/coverage.html",
 		"blanket":
