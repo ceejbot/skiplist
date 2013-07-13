@@ -5,9 +5,11 @@
 	"main": "index.js",
 	"scripts":
 	{
-		"test": "mocha -R spec test/test*.js && mocha --require blanket -R travis-cov test/test*.js",
-		"test-cov": "mocha --require blanket -R travis-cov test/*.js",
-		"coverage": "mocha --require blanket -R html-cov test/*.js > test/coverage.html",
+		"test":        "npm run basic-tests && npm run test-cov && npm run coveralls",
+		"basic-tests": "mocha -R spec test/test*.js",
+		"test-cov":    "mocha --require blanket -R travis-cov test/*.js",
+		"coveralls":   "NODE_ENV=test YOURPACKAGE_COVERAGE=1 ./node_modules/.bin/mocha --require blanket --reporter mocha-lcov-reporter test/*.js | ./node_modules/coveralls/bin/coveralls.js",
+		"coverage":    "mocha --require blanket -R html-cov test/*.js > test/coverage.html",
 		"blanket":
 		{
 			"pattern": "//^((?!\/node_modules|test\/).)*$/ig"
@@ -22,10 +24,12 @@
 	],
 	"devDependencies":
 	{
-		"mocha": "*",
-		"chai": "*",
-		"blanket": "*",
-		"travis-cov": "*"
+		"mocha":               "*",
+		"chai":                "*",
+		"blanket":             "*",
+		"travis-cov":          "*",
+		"mocha-lcov-reporter": "*",
+		"coveralls":           "*"
 	},
 	"author": "C J Silverio <ceejceej@gmail.com> (http://ceejbot.tumblr.com/)",
 	"license": "MIT"

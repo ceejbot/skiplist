@@ -2,7 +2,7 @@
 
 Because I wanted to understand skip lists.
 
-[![Build Status](https://secure.travis-ci.org/ceejbot/skiplist.png)](http://travis-ci.org/ceejbot/skiplist) [![NPM version](https://badge.fury.io/js/skiplist.png)](http://badge.fury.io/js/skiplist)
+[![Build Status](https://secure.travis-ci.org/ceejbot/skiplist.png)](http://travis-ci.org/ceejbot/skiplist) [![NPM version](https://badge.fury.io/js/skiplist.png)](http://badge.fury.io/js/skiplist) [![Coverage Status](https://coveralls.io/repos/ceejbot/skiplist/badge.png)](https://coveralls.io/r/ceejbot/skiplist)
 
 ##
 
