@@ -1,7 +1,7 @@
 {
   "name": "skiplist",
   "description": "skiplist implementation for javascript",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "author": "C J Silverio <ceejceej@gmail.com> (http://ceejbot.tumblr.com/)",
   "bugs": {
     "url": "https://github.com/ceejbot/skiplist/issues"
