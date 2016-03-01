@@ -9,6 +9,7 @@
   "dependencies": {},
   "devDependencies": {
     "coveralls": "*",
+    "eslint": "*",
     "mocha": "*",
     "must": "*",
     "nyc": "*"
