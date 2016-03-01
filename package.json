@@ -26,9 +26,9 @@
     "url": "git+ssh://git@github.com/ceejbot/skiplist.git"
   },
   "scripts": {
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc mocha test.js && nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint *.js",
-    "test": "nyc mocha -R spec test.js",
-    "travis": "npm run lint && npm test && npm run coverage"
+    "test": "mocha -R spec test.js",
+    "travis": "npm run lint && npm run coverage"
   }
 }
