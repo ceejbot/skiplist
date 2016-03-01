@@ -2,10 +2,7 @@
 
 Because I wanted to understand skip lists.
 
-[![NPM](http://nodei.co/npm/skiplist.png)](http://nodei.co/npm/skiplist/)
-
-[![Build Status](https://secure.travis-ci.org/ceejbot/skiplist.png)](http://travis-ci.org/ceejbot/skiplist) 
-[![Coverage Status](https://coveralls.io/repos/ceejbot/skiplist/badge.png)](https://coveralls.io/r/ceejbot/skiplist)
+[![npm](http://img.shields.io/npm/v/skiplist.svg?style=flat)](https://www.npmjs.org/package/skiplist) [![Tests](http://img.shields.io/travis/ceejbot/skiplist.svg?style=flat)](http://travis-ci.org/ceejbot/skiplist) [![Coverage Status](https://img.shields.io/coveralls/ceejbot/skiplist.svg?style=flat)](https://coveralls.io/github/ceejbot/skiplist?branch=master)    [![Dependencies](https://david-dm.org/ceejbot/skiplist.svg)](https://david-dm.org/ceejbot/skiplist)
 
 ##
 
