@@ -1,12 +1,9 @@
 /*global describe:true, it:true, before:true, after:true */
 
 var
-	chai = require('chai'),
-	assert = chai.assert,
-	expect = chai.expect,
-	should = chai.should(),
+	demand = require('must'),
 	crypto = require('crypto'),
-	Skiplist = require('../index')
+	Skiplist = require('./index')
 	;
 
 function makeAnimalList()
@@ -31,26 +28,26 @@ describe('Skiplist', function()
 		it('adds an item to the skiplist', function()
 		{
 			var list = new Skiplist(10);
-			list.length().should.equal(0);
+			list.length().must.equal(0);
 			list.insert('key', 'value');
-			list.length().should.equal(1);
+			list.length().must.equal(1);
 
 			var result = list.match('key');
-			result.should.equal('value');
+			result.must.equal('value');
 		});
 
 		it('updates an existing item', function()
 		{
 			var list = new Skiplist(10);
-			list.length().should.equal(0);
+			list.length().must.equal(0);
 			list.insert('key', 'value');
-			list.length().should.equal(1);
+			list.length().must.equal(1);
 
 			list.insert('key', 'another value');
-			list.length().should.equal(1);
+			list.length().must.equal(1);
 
 			var result = list.match('key');
-			result.should.equal('another value');
+			result.must.equal('another value');
 		});
 
 		it('zero cannot be a key', function()
@@ -60,11 +57,12 @@ describe('Skiplist', function()
 				var list = new Skiplist(10);
 				list.insert(0, 'zero, my hero');
 			}
-			willThrow.should.throw(Error);
+			willThrow.must.throw(Error);
 		});
 
 		it('can handle a few thousand items', function()
 		{
+			this.timeout(5000);
 			var list = new Skiplist(6000);
 			var buf1, buf2;
 
@@ -75,9 +73,9 @@ describe('Skiplist', function()
 				list.insert(buf1, buf2);
 			}
 
-			list.length().should.equal(5000);
+			list.length().must.equal(5000);
 			var results = list.find('f');
-			results.should.be.an('array');
+			results.must.be.an.array();
 		});
 	});
 
@@ -87,38 +85,37 @@ describe('Skiplist', function()
 		{
 			var list = makeAnimalList();
 			var results = list.find();
-			results.should.be.an('array');
-			results.length.should.equal(8);
+			results.must.be.an.array();
+			results.length.must.equal(8);
 		});
 
 		it('emits in sorted order', function()
 		{
 			var list = makeAnimalList();
 			var results = list.find();
-			results[0][0].should.equal('aardvark');
-			results[3][0].should.equal('cat');
-			results[7][0].should.equal('wallaby');
+			results[0][0].must.equal('aardvark');
+			results[3][0].must.equal('cat');
+			results[7][0].must.equal('wallaby');
 		});
 
 		it('returns the result of a search reversed', function()
 		{
 			var list = makeAnimalList();
 			var results = list.find(null, true);
-			results.should.be.an('array');
-			results.length.should.equal(8);
-			results[7][0].should.equal('aardvark');
-			results[4][0].should.equal('cat');
-			results[0][0].should.equal('wallaby');
+			results.must.be.an.array();
+			results.length.must.equal(8);
+			results[7][0].must.equal('aardvark');
+			results[4][0].must.equal('cat');
+			results[0][0].must.equal('wallaby');
 		});
-
 
 		it('with a parameter, it emits items greater than the passed-in key', function()
 		{
 			var list = makeAnimalList();
 			var results = list.find('dog');
-			results.should.be.ok;
-			results.should.be.an('array');
-			results.length.should.equal(4);
+			results.must.exist();
+			results.must.be.an.array();
+			results.length.must.equal(4);
 		});
 	});
 
@@ -128,18 +125,18 @@ describe('Skiplist', function()
 		{
 			var list = makeAnimalList();
 			var results = list.findWithCount('dog', 2);
-			results.should.be.ok;
-			results.should.be.an('array');
-			results.length.should.equal(2);
+			results.must.exist();
+			results.must.be.an.array();
+			results.length.must.equal(2);
 		});
 
 		it('works in reverse', function()
 		{
 			var list = makeAnimalList();
 			var results = list.findWithCount('wallaby', 2);
-			results.should.be.ok;
-			results.should.be.an('array');
-			results.length.should.equal(1);
+			results.must.exist();
+			results.must.be.an.array();
+			results.length.must.equal(1);
 		});
 	});
 
@@ -149,16 +146,16 @@ describe('Skiplist', function()
 		{
 			var list = makeAnimalList();
 			var result = list.match('cat');
-			result.should.be.ok;
-			result.should.be.a('string');
-			result.should.equal('Cats are cute.');
+			result.must.exist();
+			result.must.be.a.string();
+			result.must.equal('Cats are cute.');
 		});
 
 		it('returns null when no match is found', function()
 		{
 			var list = makeAnimalList();
 			var result = list.match('caz');
-			assert.equal(result, null, 'should not have found something!');
+			demand(result).be.null();
 		});
 	});
 
@@ -168,16 +165,16 @@ describe('Skiplist', function()
 		{
 			var list = makeAnimalList();
 			var result = list.match('cat');
-			result.should.be.ok;
-			list.remove('cat').should.equal(true);
-			assert.equal(list.match('cat'), null, 'cat did not get removed');
-			list.length().should.equal(7);
+			result.must.exist();
+			list.remove('cat').must.equal(true);
+			demand(list.match('cat')).be.null();
+			list.length().must.equal(7);
 		});
 
 		it('returns false when asked to remove an item not in the list', function()
 		{
 			var list = makeAnimalList();
-			assert.equal(list.remove('coati'), false, 'coati should not be in the list');
+			list.remove('coati').must.be.false();
 		});
 
 		it('can delete all entries in the list', function()
@@ -187,7 +184,7 @@ describe('Skiplist', function()
 			for (var i = 0; i < items.length; i++)
 				list.remove(items[i][0]);
 
-			assert.equal(list.length(), 0);
+			list.length().must.equal(0);
 		});
 	});
 
@@ -195,6 +192,8 @@ describe('Skiplist', function()
 	{
 		it('can handle random adds and deletes without barfing', function()
 		{
+			this.timeout(5000);
+
 			var list = new Skiplist(60000);
 
 			function addRandom()
@@ -223,7 +222,7 @@ describe('Skiplist', function()
 			}
 
 			var results = list.find('f');
-			results.should.be.an('array');
+			results.must.be.an.array();
 		});
 
 		it('can make a lot of animal lists', function()
@@ -234,5 +233,4 @@ describe('Skiplist', function()
 			}
 		});
 	});
-
 });

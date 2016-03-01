@@ -1,7 +1,4 @@
-var
-	assert = require('assert'),
-	util = require('util')
-	;
+var assert = require('assert');
 
 function makeNode(level, key, value)
 {
@@ -22,10 +19,8 @@ function nodesEqual(left, right)
 	return true;
 }
 
-var P = 1/Math.E;
+var P = 1 / Math.E;
 var NIL = makeNode(-1);
-
-//------------------------
 
 function Skiplist(maxsize)
 {
@@ -197,4 +192,3 @@ Skiplist.prototype.match = function(search)
 };
 
 module.exports = Skiplist;
-
